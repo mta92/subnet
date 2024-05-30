@@ -1,21 +1,21 @@
 # Resource Group
 resource "azurerm_resource_group" "rg" {
-  name     = local.resource_group_name
-  location = local.location
+  name     = var.resource_group_name
+  location = var.location
 }
 
 # Virtual Network
 resource "azurerm_virtual_network" "vnet" {
-  name                = local.vnet_name
-  address_space       = local.address_space
+  name                = var.vnet_name
+  address_space       = var.address_space
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
 
 # Subnets
 resource "azurerm_subnet" "subnet_test" {
-  name                 = local.subnet_name
+  name                 = var.subnet_name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = local.address_prefixes
+  address_prefixes     = var.address_prefixes
 }
